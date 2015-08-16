@@ -24,6 +24,25 @@ window.addEventListener('DOMContentLoaded', function() {
     // https://developer.mozilla.org/Web/API/Element.innerHTML#Security_considerations
     message.textContent = translate('message');
 
+    init()
+  }
+
+  function init() {
+    //window.addEventListener('devicemotion', handleMotion, false);
+
+    var myShakeEvent = new Shake({
+        threshold: 15, // optional shake strength threshold
+      timeout: 1000 // optional, determines the frequency of event generation
+    });
+    myShakeEvent.start();
+    window.addEventListener('shake', shakeEventDidOccur, false);
+    function shakeEventDidOccur () {
+        alert('shake!');
+    }
+  }
+  function handleMotion(event) {
+    var current = event.accelerationIncludingGravity;
+    console.log(current);
   }
 
 });
