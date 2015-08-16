@@ -24,10 +24,11 @@ window.addEventListener('DOMContentLoaded', function() {
     // https://developer.mozilla.org/Web/API/Element.innerHTML#Security_considerations
     message.textContent = translate('message');
 
-    init()
+    init();
   }
 
   function init() {
+    updateImage('img/default.gif');
     //window.addEventListener('devicemotion', handleMotion, false);
     var myShakeEvent = new Shake();
     myShakeEvent.start();
@@ -40,7 +41,7 @@ window.addEventListener('DOMContentLoaded', function() {
     var current = event.accelerationIncludingGravity;
     console.log(current);
   }
-  });
+});
 
 function fetchRandomGif() {
   const url = 'http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&';
@@ -53,8 +54,9 @@ function fetchRandomGif() {
 }
 
 function handleShake() {
-  fetchRandomGif()
-    .then(updateImage)
+  navigator.vibrate(300);
+  return fetchRandomGif()
+    .then(updateImage);
 }
 
 function updateImage(url) {
