@@ -9,27 +9,15 @@ window.addEventListener('DOMContentLoaded', function() {
   'use strict';
 
   var translate = navigator.mozL10n.get;
+  var orientation = {};
 
   // We want to wait until the localisations library has loaded all the strings.
   // So we'll tell it to let us know once it's ready.
-  navigator.mozL10n.once(start);
-
-  // ---
-
-  function start() {
-
-    var message = document.getElementById('message');
-
-    // We're using textContent because inserting content from external sources into your page using innerHTML can be dangerous.
-    // https://developer.mozilla.org/Web/API/Element.innerHTML#Security_considerations
-    message.textContent = translate('message');
-
-    init();
-  }
-
+  navigator.mozL10n.once(init);
   function init() {
     updateImage('img/default.gif');
     //window.addEventListener('devicemotion', handleMotion, false);
+    window.addEventListener('deviceorientation', handleMotion, false);
     var myShakeEvent = new Shake();
     myShakeEvent.start();
     window.addEventListener('shake', shakeEventDidOccur, false);
@@ -37,11 +25,17 @@ window.addEventListener('DOMContentLoaded', function() {
       handleShake();
     }
   }
+
   function handleMotion(event) {
     var current = event.accelerationIncludingGravity;
-    console.log(current);
+    var  beta = event.beta;
+    console.log(isLaying(beta));
   }
 });
+
+function isLaying(beta) {
+  return beta >= -22 && beta <= 38;
+}
 
 function fetchRandomGif() {
   const url = 'http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&';
