@@ -2,6 +2,7 @@
 // but without waiting for other external resources to load (css/images/etc)
 // That makes the app more responsive and perceived as faster.
 // https://developer.mozilla.org/Web/Reference/Events/DOMContentLoaded
+var url = 'nothing';
 window.addEventListener('DOMContentLoaded', function() {
 
   // We'll ask the browser to use strict code to help us catch errors earlier.
@@ -25,7 +26,16 @@ window.addEventListener('DOMContentLoaded', function() {
       var tag = event.tag;
     };
     navigator.mozNfc.onpeerfound = function (evt) {
-      console.log('peer found', evt);
+      var peer = evt.peer;
+      var ndefHelper = new NDEFHelper();
+      var record = ndefHelper.createURI(url);
+      var ndefRecords = [record];
+      peer.sendNDEF(ndefRecords).then(() => {
+        console.log('SENT URL ' + url);
+      }).catch((err) => {
+        console.log('NFC ERROR: ' + err);
+      });
+      console.log('peer', peer);
     };
 
     function shakeEventDidOccur () {
@@ -42,6 +52,7 @@ window.addEventListener('DOMContentLoaded', function() {
   }
 
 });
+
 
 function isHeldUp(beta) {
   return beta > 80 && beta < 100;
@@ -68,8 +79,10 @@ function handleShake() {
     .then(updateImage);
 }
 
-function updateImage(url) {
+function updateImage(newUrl) {
+  url = newUrl;
   document.body.style.backgroundImage = `url(${url})`
 }
+
 
 
