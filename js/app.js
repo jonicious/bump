@@ -26,13 +26,22 @@ window.addEventListener('DOMContentLoaded', function() {
       var tag = event.tag;
     };
     navigator.mozNfc.onpeerfound = function (evt) {
+      var message = document.querySelector('.message');
       var peer = evt.peer;
       var ndefHelper = new NDEFHelper();
       var record = ndefHelper.createURI(url);
       var ndefRecords = [record];
       peer.sendNDEF(ndefRecords).then(() => {
+        message.innerHTML = 'Sharing gif successful!';
+        message.classList.add('message--success');
+      message.classList.remove('message--error');
+        message.classList.remove('hidden');
         console.log('SENT URL ' + url);
       }).catch((err) => {
+        message.innerHTML = 'Something went wrong sharing your gif!';
+        message.classList.add('message--error');
+        message.classList.remove('message--success');
+        message.classList.remove('hidden');
         console.log('NFC ERROR: ' + err);
       });
       console.log('peer', peer);
