@@ -1,0 +1,29 @@
+{
+  "name": "Bump",
+  "description": "Test site",
+  "author": "Jonas Reitmann & Pascal Weiland",
+  "contributors": [
+    {
+      "name": "Jonas Reitmann",
+      "email": "jonas@reitmann.me"
+    },
+    {
+      "name": "Pascal Weiland",
+      "email": "pasweiland@gmail.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jonicious/bump"
+  },
+  "bugs": {
+    "url": "https://github.com/jonicious/bump/issues"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^2.3.1",
+    "gulp-cssmin": "^0.1.7",
+    "gulp-notify": "^2.2.0",
+    "gulp-sass": "^2.0.4"
+  }
+}
