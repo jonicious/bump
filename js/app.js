@@ -20,6 +20,14 @@ window.addEventListener('DOMContentLoaded', function() {
     var myShakeEvent = new Shake();
     myShakeEvent.start();
     window.addEventListener('shake', shakeEventDidOccur, false);
+    navigator.mozNfc.ontagfound = function (event) {
+      console.debug('nfc event', event);
+      var tag = event.tag;
+    };
+    navigator.mozNfc.onpeerfound = function (evt) {
+      console.log('peer found', evt);
+    };
+
     function shakeEventDidOccur () {
       handleShake();
     }
@@ -33,10 +41,6 @@ window.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  navigator.mozNfc.ontagfound = function (event) {
-    var tag = event.tag;
-    console.log(tag instanceof MozNFCTag); // should print true
-  }
 });
 
 function isHeldUp(beta) {
@@ -45,9 +49,6 @@ function isHeldUp(beta) {
 
 function copy() {
   console.log('executes copy');
-  //const gClipboardHelper = Components.classes["@mozilla.org/widget/clipboardhelper;1"]
-                                   //.getService(Components.interfaces.nsIClipboardHelper);
-  //gClipboardHelper.copyString("Put me on the clipboard, please.");
 }
 
 function fetchRandomGif() {

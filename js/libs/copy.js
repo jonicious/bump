@@ -29,7 +29,3 @@ function copyy(textToCopy) {
 
 }
 
-// document.addEventListener('copy', (e) => {
-//   e.clipboardData.setData('text/plain', 'hello test');
-//   e.preventDefault();
-// });
