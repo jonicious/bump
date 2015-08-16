@@ -15,8 +15,7 @@
   },
   "type": "privileged",
   "permissions": {
-    "nfc": {},
-    "nfc-share": {}
+    "nfc": {}
   },
   "installs_allowed_from": [
     "*"
