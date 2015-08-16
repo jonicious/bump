@@ -1,7 +1,7 @@
 {
   "version": "0.1.0",
   "name": "bump",
-  "description": "A template with the bare minimum structure",
+  "description": "This a simple app created during a workshop at #otsconf15. You shake your device and it shows you a random gif using the Giphy API.",
   "launch_path": "/index.html",
   "icons": {
     "16": "/img/icons/icon16x16.png",
@@ -20,12 +20,5 @@
   "installs_allowed_from": [
     "*"
   ],
-  "locales": {
-    "es": {
-      "name": "Aplicación vacía privilegiada",
-      "description": "Una plantilla con la mínima estructura",
-      "permissions": {}
-    }
-  },
   "default_locale": "en"
 }
