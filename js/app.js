@@ -15,7 +15,6 @@ window.addEventListener('DOMContentLoaded', function() {
   // So we'll tell it to let us know once it's ready.
   navigator.mozL10n.once(init);
   function init() {
-    updateImage('img/default.gif');
     //window.addEventListener('devicemotion', handleMotion, false);
     window.addEventListener('deviceorientation', handleMotion, false);
     var myShakeEvent = new Shake();
@@ -27,14 +26,28 @@ window.addEventListener('DOMContentLoaded', function() {
   }
 
   function handleMotion(event) {
-    var current = event.accelerationIncludingGravity;
-    var  beta = event.beta;
-    console.log(isLaying(beta));
+    var beta = event.beta;
+    var isUp = isHeldUp(beta);
+    if(isUp) {
+      copy();
+    }
+  }
+
+  navigator.mozNfc.ontagfound = function (event) {
+    var tag = event.tag;
+    console.log(tag instanceof MozNFCTag); // should print true
   }
 });
 
-function isLaying(beta) {
-  return beta >= -22 && beta <= 38;
+function isHeldUp(beta) {
+  return beta > 80 && beta < 100;
+}
+
+function copy() {
+  console.log('executes copy');
+  //const gClipboardHelper = Components.classes["@mozilla.org/widget/clipboardhelper;1"]
+                                   //.getService(Components.interfaces.nsIClipboardHelper);
+  //gClipboardHelper.copyString("Put me on the clipboard, please.");
 }
 
 function fetchRandomGif() {
@@ -49,6 +62,7 @@ function fetchRandomGif() {
 
 function handleShake() {
   navigator.vibrate(300);
+  document.querySelector('.intro-headline').classList.add('hidden');
   return fetchRandomGif()
     .then(updateImage);
 }
